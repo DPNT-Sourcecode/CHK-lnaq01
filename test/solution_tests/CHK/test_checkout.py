@@ -40,3 +40,8 @@ class TestCheckout:
         assert checkout_solution.checkout("FFF") == 20
         assert checkout_solution.checkout("FFFF") == 30
 
+    def test_checkout_r4(self):
+        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 4
+
+
+
