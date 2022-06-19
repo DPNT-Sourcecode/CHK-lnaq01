@@ -78,7 +78,7 @@ def calculate_num_req_b_s(num_e_s: int) -> int:
 
 
 def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> (int, dict):
-    discount_amount = 0
+    discount_total = 0
     for mbgofo in multi_buy_get_one_free_offers:
         # if the offer sku is in our basket
         if mbgofo.offer_sku in basket_sku_num_dict:
@@ -91,10 +91,9 @@ def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> (int, d
                     # Calculate how many to add
                     # Add the price of these to the discount amount
                     # Remove one from the basket
-                    discount_amount +=
-                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku,
-                                                                                    0) + mbgofo.prize_amount
-    return discount_amount, basket_sku_num_dict
+                    discount_total += sku_to_price_lookup_dict.get(mbgofo.prize_sku) * mbgofo.prize_amount
+                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku) - mbgofo.prize_amount
+    return discount_total, basket_sku_num_dict
 
 
 
@@ -129,6 +128,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
