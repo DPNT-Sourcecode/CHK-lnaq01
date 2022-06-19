@@ -77,7 +77,7 @@ def calculate_num_req_b_s(num_e_s: int) -> int:
     return num_e_s // 2  # Floor division answer
 
 
-def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> dict:
+def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> (int, dict):
     for mbgofo in multi_buy_get_one_free_offers:
         # if the offer sku is in our basket
         if mbgofo.offer_sku in basket_sku_num_dict:
@@ -88,8 +88,12 @@ def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> dict:
                 num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
                 if num_prizes_in_basket < num_prizes_won:
                     # add one to the basket
-                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) + mbgofo.prize_amount
+                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku,
+                                                                                    0) + mbgofo.prize_amount
     return basket_sku_num_dict
+
+
+
 
 
 # noinspection PyUnusedLocal
@@ -111,15 +115,17 @@ def checkout(skus: str) -> int:
     if basket_sku_num_dict is None:
         return -1
 
-    basket_sku_num_dict = calculate_multi_buy_get_one_free_items(basket_sku_num_dict)
+    discount, basket_sku_num_dict = calculate_multi_buy_get_one_free_items(basket_sku_num_dict)
     print("basket_sku_num_dict: ", basket_sku_num_dict)
 
     basket_total = 0
+    basket_total, basket_sku_num_dict = calculate_free_items_discount(basket_sku_num_dict)
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
