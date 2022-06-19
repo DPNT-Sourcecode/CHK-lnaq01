@@ -29,4 +29,3 @@ class TestSum:
         assert checkout_solution.checkout("BABDDCAC") == 215
         assert checkout_solution.checkout("AAABB") == 175
         assert checkout_solution.checkout("ABCDCBAABCABBAAA") == 505
-
