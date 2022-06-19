@@ -132,6 +132,10 @@ def calculate_get_one_free_offers(basket_dict: dict) -> dict:
                         basket_dict[gof_offer.prize_sku] = basket_dict[gof_offer.prize_sku] - 1
     return basket_dict
 
+def sort_group_offer_prices(sku_and_price: tuple):
+    return sku_and_price[1]
+
+
 def calculate_group_offers(basket_dict: dict) -> (int, dict):
     for group_offer in group_offers:
         group_items_in_basket = []
@@ -139,7 +143,10 @@ def calculate_group_offers(basket_dict: dict) -> (int, dict):
             if char in basket_dict:
                 for i in range(basket_dict.get(char, 0)):
                     group_items_in_basket.append((char, sku_to_price_lookup_dict[char]))
-    print(group_items_in_basket)
+        print("group_items_in_basket: ", group_items_in_basket)
+        group_items_in_basket.sort(reverse=True, key=sort_group_offer_prices)
+
+
     return None, None
 
 # noinspection PyUnusedLocal
@@ -165,6 +172,7 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
 
 
