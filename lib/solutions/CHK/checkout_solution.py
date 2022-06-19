@@ -48,12 +48,6 @@ multi_buy_get_one_free_offers = [
 def calculate_item_amount(sku: str, num_items: int) -> int:
     sub_total = 0
 
-    for mbgofo in multi_buy_get_one_free_offers:
-        # Get the number of free ones we should be getting
-        # Get the number of ones we have currently (These should be valid at this stage)
-        # Discount the sub_total by the correct amount
-        # Remove one from the prixe count in the basket
-
     for mbo in multi_buy_discount_offers:
         if sku in mbo.sku:
             while num_items >= mbo.offer_threshold:
@@ -84,11 +78,6 @@ def calculate_num_req_b_s(num_e_s: int) -> int:
 
 
 def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> dict:
-    # We have 2 main situations with E
-    # 1.You could have at least 1 B in your basket for every free one you are getting already, in which case, we don't
-    # need to edit the basket
-    # 2.You have not enough Bs in your basket for the amount of Es you have. This should be balanced in the basket.
-    # For each GOF offer
     for mbgofo in multi_buy_get_one_free_offers:
         # if the offer sku is in our basket
         if mbgofo.offer_sku in basket_sku_num_dict:
@@ -99,7 +88,6 @@ def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> dict:
                 num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
                 if num_prizes_in_basket < num_prizes_won:
                     # add one to the basket
-                    print("Adding an item for free")
                     basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) + mbgofo.prize_amount
     return basket_sku_num_dict
 
@@ -132,6 +120,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
