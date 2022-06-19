@@ -48,7 +48,20 @@ class TestCheckout:
         assert checkout_solution.checkout("K") == 80
         assert checkout_solution.checkout("KK") == 150
         assert checkout_solution.checkout("KKK") == 230
-        assert checkout_solution.checkout("KKKK") == 3001
+        assert checkout_solution.checkout("KKKK") == 300
+        assert checkout_solution.checkout("NNN") == 120
+        assert checkout_solution.checkout("NNNM") == 120
+        assert checkout_solution.checkout("NNNMM") == 135
+        assert checkout_solution.checkout("PPPP") == 200
+        assert checkout_solution.checkout("PPPPP") == 200
+        assert checkout_solution.checkout("PPPPPP") == 250
+        assert checkout_solution.checkout("QQQ") == 80
+        assert checkout_solution.checkout("QQQQ") == 110
+        assert checkout_solution.checkout("QQQQQQ") == 160
+        assert checkout_solution.checkout("QQQQQQQ") == 190
+        assert checkout_solution.checkout("RRR") == 190
+
+
 
 
 
