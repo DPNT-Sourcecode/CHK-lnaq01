@@ -13,21 +13,22 @@ class TestSum:
         assert checkout_solution.checkout("-") == -1
         assert checkout_solution.checkout("ABCa") == -1 # We are unsure if this is a valid sku string or not
         assert checkout_solution.checkout("AxA") == -1
-        assert checkout_solution.checkout("ABCD") == -1
-        assert checkout_solution.checkout("A") == -1
-        assert checkout_solution.checkout("AA") == -1
-        assert checkout_solution.checkout("AAA") == -1
-        assert checkout_solution.checkout("AAAA") == -1
-        assert checkout_solution.checkout("AAAAA") == -1
-        assert checkout_solution.checkout("AAAAAA") == -1
-        assert checkout_solution.checkout("B") == -1
-        assert checkout_solution.checkout("BB") == -1
-        assert checkout_solution.checkout("BBB") == -1
-        assert checkout_solution.checkout("BBBB") == -1
-        assert checkout_solution.checkout("ABCDABCD") == -1
-        assert checkout_solution.checkout("BABDDCAC") == -1
+        assert checkout_solution.checkout("ABCD") == 115
+        assert checkout_solution.checkout("A") == 50
+        assert checkout_solution.checkout("AA") == 100
+        assert checkout_solution.checkout("AAA") == 130
+        assert checkout_solution.checkout("AAAA") == 180
+        assert checkout_solution.checkout("AAAAA") == 230
+        assert checkout_solution.checkout("AAAAAA") == 260
+        assert checkout_solution.checkout("B") == 30
+        assert checkout_solution.checkout("BB") == 45
+        assert checkout_solution.checkout("BBB") == 75
+        assert checkout_solution.checkout("BBBB") == 90
+        assert checkout_solution.checkout("ABCDABCD") == 215
+        assert checkout_solution.checkout("BABDDCAC") == 215
         assert checkout_solution.checkout("AAABB") == -1
         assert checkout_solution.checkout("ABCDCBAABCABBAAA") == -1
+
 
 
 
