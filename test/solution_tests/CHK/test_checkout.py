@@ -11,7 +11,8 @@ class TestSum:
         assert checkout_solution.checkout("D") == 15
         assert checkout_solution.checkout("a") == -1
         assert checkout_solution.checkout("-") == -1
-        assert checkout_solution.checkout("ABCa") == -1 # We are unsure if this is a valid sku string or not
+        assert checkout_solution.checkout("ABCa") == -1  # We are unsure if this is a valid sku string or not, we'll
+        # find out after we've deployed it again
         assert checkout_solution.checkout("AxA") == -1
         assert checkout_solution.checkout("ABCD") == 115
         assert checkout_solution.checkout("A") == 50
