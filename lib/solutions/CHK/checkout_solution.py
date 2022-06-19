@@ -118,6 +118,3 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
-
-
-

@@ -38,4 +38,3 @@ class TestSum:
         assert checkout_solution.checkout("EEBBB") == 125
         assert checkout_solution.checkout("EEEEBBBB") == 205
 
-
