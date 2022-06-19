@@ -28,7 +28,7 @@ def calculate_item_amount(sku: str, num_items: int) -> int:
 # noinspection PyUnusedLocal
 # skus = unicode string
 
-def parse_skus_string(skus: str) -> dict[str, int]:
+def parse_skus_string(skus: str) -> dict:
     # Outputs dictionary containing the skus, and number of them which occur in the file
     sku_num_items_dict = {}
     # for sku in skus:
@@ -41,11 +41,13 @@ def checkout(skus: str) -> int:
     # Therefore, we will need to deploy an incorrect solution to find out what this is
     # ______ We have a price table given to us in the txt file, and we should think of a good way to store this
     # ______ We also have some special offers, and we'll have to think of a good way of storing this also
+
     sku_num_dict = parse_skus_string(skus)
     basket_total = 0
-    for sku in sku_num_dict:
-        basket_total += calculate_item_amount(sku)
-    return 0
+    for sku, num_items in sku_num_dict.items():
+        basket_total += calculate_item_amount(sku, num_items)
+    return basket_total
+
 
 
 
