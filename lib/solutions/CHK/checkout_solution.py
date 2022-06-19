@@ -35,9 +35,9 @@ class MultiBuyGetOneFreeOffer:
     prize_amount = 1
 
     def __init__(self, offer_sku: str, offer_threshold: int, prize_sku: str):
-        offer_sku = offer_sku
-        offer_threshold = offer_threshold
-        prize_sku = prize_sku
+        self.offer_sku = offer_sku
+        self.offer_threshold = offer_threshold
+        self.prize_sku = prize_sku
 
 
 multi_buy_get_one_free_offers = [
@@ -47,9 +47,12 @@ multi_buy_get_one_free_offers = [
 
 def calculate_item_amount(sku: str, num_items: int) -> int:
     sub_total = 0
-    # Currently, we are only aware of 2 special offers
-    # 3As for 130, and 2Bs for 45
-    # Lets do this naively to begin with, and we'll change it in future to accommodate other offers
+
+    for mbgofo in multi_buy_get_one_free_offers:
+        # Get the number of free ones we should be getting
+        # Get the number of ones we have currently (These should be valid at this stage)
+        # Discount the sub_total by the correct amount
+        # Remove one from the prixe count in the basket
 
     for mbo in multi_buy_discount_offers:
         if sku in mbo.sku:
@@ -129,6 +132,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
