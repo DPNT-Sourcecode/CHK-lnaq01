@@ -75,9 +75,9 @@ class TestCheckout:
         assert checkout_solution.checkout("STXZTT") == 90
         assert checkout_solution.checkout("STXSSS") == 90
         assert checkout_solution.checkout("STXSSSAAA") == 220
-
-
-
+        assert checkout_solution.checkout("KK") == 120
+        assert checkout_solution.checkout("K") == 70
+        assert checkout_solution.checkout("KKK") == 190
 
 
 
