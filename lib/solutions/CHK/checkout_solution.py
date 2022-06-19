@@ -50,6 +50,13 @@ multi_buy_discount_offers = [
     MultiBuyDiscountOffer("B", 2, 45),
     MultiBuyDiscountOffer("F", 3, 20),
     MultiBuyDiscountOffer("U", 4, 120),
+    MultiBuyDiscountOffer("H", 5, 45),
+    MultiBuyDiscountOffer("H", 10, 80),
+    MultiBuyDiscountOffer("K", 2, 150),
+    MultiBuyDiscountOffer("P", 5, 200),
+    MultiBuyDiscountOffer("Q", 3, 80),
+    MultiBuyDiscountOffer("V", 2, 90),
+    MultiBuyDiscountOffer("V", 3, 130),
 ]
 
 
@@ -66,7 +73,10 @@ class GetOneFreeOffer:
 
 
 sku_to_gof_offer_dict = {
-    "E": [GetOneFreeOffer("E", 2, "B")]
+    "E": [GetOneFreeOffer("E", 2, "B")],
+    "N": [GetOneFreeOffer("N", 3, "M")],
+    "E": [GetOneFreeOffer("E", 2, "B")],
+
 }
 
 
@@ -129,6 +139,7 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
 
 
