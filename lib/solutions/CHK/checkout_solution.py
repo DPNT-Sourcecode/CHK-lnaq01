@@ -70,9 +70,6 @@ def parse_skus_string(skus: str) -> dict:
     sku_num_items_dict = {}
     for sku in skus:
         if sku not in sku_to_price_lookup_dict:
-            # # Skip character
-            # continue
-            # OR, if is not valid string
             return None
         sku_num_items_dict[sku] = sku_num_items_dict.get(sku, 0) + 1
     return sku_num_items_dict
@@ -115,10 +112,3 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
-
-
-
-
-
-
-
