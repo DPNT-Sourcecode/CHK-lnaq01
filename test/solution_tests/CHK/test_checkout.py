@@ -19,8 +19,8 @@ class TestSum:
         assert checkout_solution.checkout("AA") == 100
         assert checkout_solution.checkout("AAA") == 130
         assert checkout_solution.checkout("AAAA") == 180
-        assert checkout_solution.checkout("AAAAA") == 230
-        assert checkout_solution.checkout("AAAAAA") == 260
+        assert checkout_solution.checkout("AAAAA") == 200
+        assert checkout_solution.checkout("AAAAAA") == 250
         assert checkout_solution.checkout("B") == 30
         assert checkout_solution.checkout("BB") == 45
         assert checkout_solution.checkout("BBB") == 75
@@ -37,4 +37,5 @@ class TestSum:
         # 2 Es and 1 free B should take priority over 2Bs for 45. In this case
         assert checkout_solution.checkout("EEBBB") == 125
         assert checkout_solution.checkout("EEEEBBBB") == 205
+
 

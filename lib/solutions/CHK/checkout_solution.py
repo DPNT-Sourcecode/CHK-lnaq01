@@ -86,14 +86,9 @@ def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict):
                 # If we don't have enough prizes in the basket, add the correct amount
                 num_prizes_in_basket = basket_sku_num_dict.get(mbgofo.prize_sku, 0)
                 num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
-                print(num_prizes_in_basket)
-                print(num_prizes_won)
                 if num_prizes_in_basket >= num_prizes_won and num_prizes_in_basket > 0:
                     basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) - mbgofo.prize_amount
     return basket_sku_num_dict
-
-
-
 
 
 # noinspection PyUnusedLocal
@@ -123,5 +118,6 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
 
 
