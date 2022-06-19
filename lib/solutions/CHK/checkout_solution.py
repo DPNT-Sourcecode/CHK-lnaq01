@@ -28,7 +28,7 @@ multi_buy_discount_offers = [
 ]
 
 
-class MultiBuyGetOneFreeOffer:
+class GetOneFreeOffer:
     offer_sku = ""
     offer_threshold = None
     prize_sku = None
@@ -40,9 +40,9 @@ class MultiBuyGetOneFreeOffer:
         self.prize_sku = prize_sku
 
 
-multi_buy_get_one_free_offers = [
-    MultiBuyGetOneFreeOffer("E", 2, "B")
-]
+sku_to_gof_offer_dict = {
+    "E": [GetOneFreeOffer("E", 2, "B")]
+}
 
 
 def calculate_item_amount(sku: str, num_items: int) -> int:
@@ -72,11 +72,6 @@ def parse_skus_string(skus: str) -> dict:
         sku_num_items_dict[sku] = sku_num_items_dict.get(sku, 0) + 1
     return sku_num_items_dict
 
-
-def calculate_num_req_b_s(num_e_s: int) -> int:
-    return num_e_s // 2  # Floor division answer
-
-
 def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict):
     for mbgofo in multi_buy_get_one_free_offers:
         # if the offer sku is in our basket
@@ -87,7 +82,8 @@ def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict):
                 num_prizes_in_basket = basket_sku_num_dict.get(mbgofo.prize_sku, 0)
                 num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
                 if num_prizes_in_basket >= num_prizes_won and num_prizes_in_basket > 0:
-                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) - mbgofo.prize_amount
+                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku,
+                                                                                    0) - mbgofo.prize_amount
     return basket_sku_num_dict
 
 
@@ -118,3 +114,4 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
