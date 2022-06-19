@@ -7,6 +7,21 @@ sku_to_price_lookup_dict = {
 }
 # We're beginning to create a solution which is becoming unsustainable, we should change the way we are
 # handling special offers
+class MultiBuyDiscountOffer:
+    sku = ""
+    offer_threshold = None
+    offer_amount = None
+
+    def __init__(self,sku:str, offer_threshold:int, offer_amount:int):
+        self.sku = sku
+        self.offer_threshold = offer_threshold
+        self.offer_amount = offer_amount
+
+multi_buy_offers = [
+    MultiBuyDiscountOffer("A", 3, 130),
+    MultiBuyDiscountOffer("B",2,45),
+]
+
 
 def calculate_item_amount(sku: str, num_items: int) -> int:
     sub_total = 0
@@ -89,6 +104,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
