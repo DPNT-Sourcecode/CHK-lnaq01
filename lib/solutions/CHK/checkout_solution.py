@@ -3,6 +3,7 @@ sku_to_price_lookup_dict = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
 
 
@@ -38,6 +39,11 @@ def parse_skus_string(skus: str) -> dict:
     return sku_num_items_dict
 
 
+def calculate_free_items_offers(sku_num_dict: dict) -> dict:
+
+
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
@@ -57,9 +63,12 @@ def checkout(skus: str) -> int:
     if sku_num_dict is None:
         return -1
 
+    sku_num_dict = calculate_free_items_offers(sku_num_dict)
+
     basket_total = 0
     for sku, num_items in sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
 
     return basket_total
+
