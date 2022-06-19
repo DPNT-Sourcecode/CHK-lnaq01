@@ -6,7 +6,9 @@ sku_to_price_lookup_dict = {
     "E": 40,
 }
 # We're beginning to create a solution which is becoming unsustainable, we should change the way we are
-# handling special offers
+# handling special offers. Using classes will allow us to contain functionality within the offers, making
+# the calculations clearer as we add more offers and items
+
 class MultiBuyDiscountOffer:
     sku = ""
     offer_threshold = None
@@ -19,8 +21,19 @@ class MultiBuyDiscountOffer:
 
 multi_buy_offers = [
     MultiBuyDiscountOffer("A", 3, 130),
-    MultiBuyDiscountOffer("B",2,45),
+    MultiBuyDiscountOffer("B", 2,45),
 ]
+
+class MultiBuyGetOneFreeOffer:
+    offer_sku = ""
+    offer_threshold = None
+    prize_sku = None
+    prize_amount = 1
+
+    def __init__(self, offer_sku:str, offer_threshold:int, prize_sku:str):
+        offer_sku = offer_sku
+        offer_threshold = offer_threshold
+        prize_sku = prize_sku
 
 
 def calculate_item_amount(sku: str, num_items: int) -> int:
@@ -104,6 +117,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
