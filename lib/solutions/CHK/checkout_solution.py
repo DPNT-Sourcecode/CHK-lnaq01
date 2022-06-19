@@ -6,12 +6,19 @@ sku_to_price_lookup_dict = {
 }
 
 
-def calculate_special_offer_amount(sku: str, num_items: int) -> int:
+def calculate_amount(sku: str, num_items: int) -> int:
     sub_total = 0
     # Currently, we are only aware of 2 special offers
     # 3As for 130, and 2Bs for 45
-    # Lets do this naively to begin with, and we'll change it in future to accomodate other offers
-
+    # Lets do this naively to begin with, and we'll change it in future to accommodate other offers
+    if sku == "A" and num_items >= 3:
+        while num_items >= 3:
+            sub_total += 130
+            num_items -= 3
+    if sku == "B" and num_items >= 2:
+        while num_items >= 2:
+            sub_total += 45
+            num_items -= 2
     return sub_total
 
 
@@ -24,4 +31,5 @@ def checkout(skus: str) -> int:
     # ______ We have a price table given to us in the txt file, and we should think of a good way to store this
     # ______ We also have some special offers, and we'll have to think of a good way of storing this also
     return 0
+
 
