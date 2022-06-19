@@ -9,7 +9,7 @@ sku_to_price_lookup_dict = {
     "H": 10,
     "I": 35,
     "J": 60,
-    "K": 80,
+    "K": 70,
     "L": 90,
     "M": 15,
     "N": 40,
@@ -52,7 +52,7 @@ multi_buy_discount_offers = [
     MultiBuyDiscountOffer("U", 4, 120),
     MultiBuyDiscountOffer("H", 5, 45),
     MultiBuyDiscountOffer("H", 10, 80),
-    MultiBuyDiscountOffer("K", 2, 150),
+    MultiBuyDiscountOffer("K", 2, 120),
     MultiBuyDiscountOffer("P", 5, 200),
     MultiBuyDiscountOffer("Q", 3, 80),
     MultiBuyDiscountOffer("V", 2, 90),
@@ -134,7 +134,10 @@ def checkout(skus: str) -> int:
         return -1
     basket_sku_num_dict = calculate_get_one_free_offers(basket_sku_num_dict)
 
+
+
     basket_total = 0
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
