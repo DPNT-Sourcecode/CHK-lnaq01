@@ -22,7 +22,3 @@ class TestSum:
         assert sum_solution.compute(None, None) is None
         assert sum_solution.compute(None, 1) is None
         assert sum_solution.compute(1, None) is None
-
-
-
-
