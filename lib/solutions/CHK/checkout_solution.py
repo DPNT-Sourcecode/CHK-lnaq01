@@ -22,12 +22,15 @@ class MultiBuyDiscountOffer:
         self.offer_amount = offer_amount
 
 
+def sort_multibuy_discounts_by_ppu(mb_offer: MultiBuyDiscountOffer):
+    ppu = mb_offer.offer_amount
+
 multi_buy_discount_offers = [
     MultiBuyDiscountOffer("A", 5, 200),
     MultiBuyDiscountOffer("A", 3, 130),
     MultiBuyDiscountOffer("B", 2, 45),
 ]
-
+multi_buy_discount_offers = multi_buy_discount_offers.sort(key=sort_multibuy_discounts_by_ppu)
 
 class GetOneFreeOffer:
     offer_sku = ""
@@ -112,6 +115,7 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
 
 
 
