@@ -5,6 +5,8 @@ sku_to_price_lookup_dict = {
     "D": 15,
     "E": 40,
 }
+
+
 # We're beginning to create a solution which is becoming unsustainable, we should change the way we are
 # handling special offers. Using classes will allow us to contain functionality within the offers, making
 # the calculations clearer as we add more offers and items
@@ -14,15 +16,17 @@ class MultiBuyDiscountOffer:
     offer_threshold = None
     offer_amount = None
 
-    def __init__(self,sku:str, offer_threshold:int, offer_amount:int):
+    def __init__(self, sku: str, offer_threshold: int, offer_amount: int):
         self.sku = sku
         self.offer_threshold = offer_threshold
         self.offer_amount = offer_amount
 
-multi_buy_offers = [
+
+multi_buy_discount_offers = [
     MultiBuyDiscountOffer("A", 3, 130),
-    MultiBuyDiscountOffer("B", 2,45),
+    MultiBuyDiscountOffer("B", 2, 45),
 ]
+
 
 class MultiBuyGetOneFreeOffer:
     offer_sku = ""
@@ -30,10 +34,15 @@ class MultiBuyGetOneFreeOffer:
     prize_sku = None
     prize_amount = 1
 
-    def __init__(self, offer_sku:str, offer_threshold:int, prize_sku:str):
+    def __init__(self, offer_sku: str, offer_threshold: int, prize_sku: str):
         offer_sku = offer_sku
         offer_threshold = offer_threshold
         prize_sku = prize_sku
+
+
+multi_buy_get_one_free_offers = [
+    MultiBuyGetOneFreeOffer("E", 2, "B")
+]
 
 
 def calculate_item_amount(sku: str, num_items: int) -> int:
@@ -41,14 +50,12 @@ def calculate_item_amount(sku: str, num_items: int) -> int:
     # Currently, we are only aware of 2 special offers
     # 3As for 130, and 2Bs for 45
     # Lets do this naively to begin with, and we'll change it in future to accommodate other offers
-    if sku == "A" and num_items >= 3:
-        while num_items >= 3:
-            sub_total += 130
-            num_items -= 3
-    if sku == "B" and num_items >= 2:
-        while num_items >= 2:
-            sub_total += 45
-            num_items -= 2
+
+    for mbo in multi_buy_discount_offers:
+        if sku in mbo.sku:
+            while num_items >= mbo.offer_threshold:
+                sub_total += mbo.offer_amount
+                num_items -= mbo.offer_threshold
     while num_items > 0:
         sub_total += sku_to_price_lookup_dict[sku]
         num_items -= 1
@@ -85,7 +92,7 @@ def calculate_free_items_offers(sku_num_dict: dict) -> dict:
 
     # How many Bs should you have?
     req_b_s = calculate_num_req_b_s(num_get_one_free_offer_item_params)
-    if num_get_one_free_items < req_b_s:
+    # if num_get_one_free_items < req_b_s:
 
     return None
 
@@ -109,7 +116,7 @@ def checkout(skus: str) -> int:
     if sku_num_dict is None:
         return -1
 
-    sku_num_dict = calculate_free_items_offers(sku_num_dict)
+    # sku_num_dict = calculate_free_items_offers(sku_num_dict)
 
     basket_total = 0
     for sku, num_items in sku_num_dict.items():
@@ -117,6 +124,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
