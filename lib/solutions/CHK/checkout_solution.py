@@ -39,15 +39,23 @@ def parse_skus_string(skus: str) -> dict:
     return sku_num_items_dict
 
 
+def calculate_num_req_b_s(num_e_s: int) -> int:
+    return num_e_s // 2  # Floor division answer
+
+
 def calculate_free_items_offers(sku_num_dict: dict) -> dict:
     # We have 2 main situations with E
     # 1.You could have at least 1 B in your basket for every free one you are getting already, in which case, we don't
     # need to edit the basket
     # 2.You have not enough Bs in your basket for the amount of Es you have. This should be balanced.
-    
+    # How many Es?
+    num_get_one_free_offer_item_params = 0
+    # How many Bs?
+    num_get_one_free_items = 0
+
+    # How many Bs should you have?
+
     return None
-
-
 
 
 # noinspection PyUnusedLocal
@@ -77,5 +85,6 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
