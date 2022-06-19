@@ -29,3 +29,11 @@ class TestSum:
         assert checkout_solution.checkout("BABDDCAC") == 215
         assert checkout_solution.checkout("AAABB") == 175
         assert checkout_solution.checkout("ABCDCBAABCABBAAA") == 505
+        assert checkout_solution.checkout("EE") == 80
+        assert checkout_solution.checkout("EEB") == 80
+        assert checkout_solution.checkout("EEBB") == 110 # Here we have two conflicting offers, so we must accomodate
+        # both. The brief says to favour the customer, so we should calculate both, and determine which gives us
+        # the lowest subtotal
+        assert checkout_solution.checkout("EEBB") == 110
+
+

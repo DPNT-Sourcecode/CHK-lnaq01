@@ -56,6 +56,7 @@ def calculate_item_amount(sku: str, num_items: int) -> int:
             while num_items >= mbo.offer_threshold:
                 sub_total += mbo.offer_amount
                 num_items -= mbo.offer_threshold
+
     while num_items > 0:
         sub_total += sku_to_price_lookup_dict[sku]
         num_items -= 1
@@ -124,6 +125,7 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
