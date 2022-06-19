@@ -23,14 +23,15 @@ class MultiBuyDiscountOffer:
 
 
 def sort_multibuy_discounts_by_ppu(mb_offer: MultiBuyDiscountOffer):
-    ppu = mb_offer.offer_amount
+    price_per_unit = mb_offer.offer_amount/mb_offer.offer_threshold
+    return price_per_unit
 
 multi_buy_discount_offers = [
     MultiBuyDiscountOffer("A", 5, 200),
     MultiBuyDiscountOffer("A", 3, 130),
     MultiBuyDiscountOffer("B", 2, 45),
 ]
-multi_buy_discount_offers = multi_buy_discount_offers.sort(key=sort_multibuy_discounts_by_ppu)
+
 
 class GetOneFreeOffer:
     offer_sku = ""
@@ -51,7 +52,7 @@ sku_to_gof_offer_dict = {
 
 def calculate_item_amount(sku: str, num_items: int) -> int:
     sub_total = 0
-
+    multi_buy_discount_offers.sort(key=sort_multibuy_discounts_by_ppu)
     for mbo in multi_buy_discount_offers:
         if sku in mbo.sku:
             while num_items >= mbo.offer_threshold:
@@ -115,6 +116,7 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
 
 
 
