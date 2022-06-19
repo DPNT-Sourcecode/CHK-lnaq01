@@ -50,6 +50,22 @@ sku_to_gof_offer_dict = {
 }
 
 
+def calculate_best_mb_offer_amount(sku: str, num_items: int)-> int:
+    multi_buy_discount_offers.sort(key=sort_multibuy_discounts_by_ppu)
+    for mbo in multi_buy_discount_offers:
+        if sku in mbo.sku:
+            if num_items>=mbo.offer_threshold:
+                num_items -= mbo.offer_threshold
+                return mbo.offer_amount + calculate_best_mb_offer_amount(sku, num_items)
+    return sku_to_price_lookup_dict[sku]*num_items
+
+
+        if sku in mbo.sku:
+            while num_items >= mbo.offer_threshold:
+                sub_total += mbo.offer_amount
+                num_items -= mbo.offer_threshold
+
+
 def calculate_item_amount(sku: str, num_items: int) -> int:
     sub_total = 0
     multi_buy_discount_offers.sort(key=sort_multibuy_discounts_by_ppu)
@@ -116,6 +132,7 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
 
 
 
