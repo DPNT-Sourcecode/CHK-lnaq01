@@ -26,11 +26,6 @@ class TestSum:
         assert checkout_solution.checkout("BBBB") == 90
         assert checkout_solution.checkout("ABCDABCD") == 215
         assert checkout_solution.checkout("BABDDCAC") == 215
-        assert checkout_solution.checkout("AAABB") == -1
-        assert checkout_solution.checkout("ABCDCBAABCABBAAA") == -1
-
-
-
-
-
+        assert checkout_solution.checkout("AAABB") == 175
+        assert checkout_solution.checkout("ABCDCBAABCABBAAA") == 505
 
