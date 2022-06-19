@@ -165,15 +165,6 @@ def calculate_group_offers(basket_dict: dict) -> (int, dict):
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
-    # ______ At the moment, we do not know the format of the string "skus"
-    # e.g. "AAABBBABACGER", "A,B,C,DDD,E" etc.
-    # Therefore, we will need to deploy an incorrect solution to find out what this is
-    # ______ We have a price table given to us in the txt file, and we should think of a good way to store this
-    # ______ We also have some special offers, and we'll have to think of a good way of storing this also
-    # We don't know the format, so lets get an incorrect answer on purpose
-    # Now we know the format, and have some example cases, we can parse our string and calculate totals
-    # We can also add our test cases to our tests, so we don't get another time penalty
-
     if skus is None:
         return -1
     basket_sku_num_dict = parse_skus_string(skus)
@@ -185,3 +176,4 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
