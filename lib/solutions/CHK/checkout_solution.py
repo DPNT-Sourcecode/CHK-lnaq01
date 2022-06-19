@@ -146,7 +146,7 @@ def calculate_group_offers(basket_dict: dict) -> (int, dict):
             if char in basket_dict:
                 for i in range(basket_dict.get(char, 0)):
                     group_items_in_basket.append((char, sku_to_price_lookup_dict[char]))
-            basket_dict[char] = 0
+                basket_dict.pop(char)
         print("Before - group_items_in_basket: ", group_items_in_basket)
         group_items_in_basket.sort(reverse=True, key=sort_group_offer_prices)
         print("After - group_items_in_basket: ", group_items_in_basket)
@@ -156,7 +156,7 @@ def calculate_group_offers(basket_dict: dict) -> (int, dict):
             group_items_in_basket = group_items_in_basket[3:]
         print("DONE - group_items_in_basket: ",group_items_in_basket)
         for sku_price_tuple in group_items_in_basket:
-            basket_dict.get(sku_price_tuple[0], 0)+1
+            basket_dict[sku_price_tuple[0]] = basket_dict.get(sku_price_tuple[0], 0)+1
     print("DONE basket_dict: ",basket_dict)
 
     return subtotal, basket_dict
@@ -185,6 +185,7 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
 
 
