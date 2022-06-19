@@ -17,14 +17,14 @@ sku_to_price_lookup_dict = {
     "P": 50,
     "Q": 30,
     "R": 50,
-    "S": 30,
+    "S": 20,
     "T": 20,
     "U": 40,
     "V": 50,
     "W": 20,
-    "X": 90,
-    "Y": 10,
-    "Z": 50,
+    "X": 17,
+    "Y": 20,
+    "Z": 21,
 }
 
 
@@ -77,6 +77,15 @@ sku_to_gof_offer_dict = {
     "N": [GetOneFreeOffer("N", 3, "M")],
     "R": [GetOneFreeOffer("R", 3, "Q")],
 }
+
+class GroupOffer:
+    skus = ""
+    num_req = ""
+    offer_amount = ""
+    ppu = ""
+
+    def __init__(self):
+        
 
 
 def calculate_best_mb_offer_amount(sku: str, num_items: int) -> int:
@@ -140,4 +149,5 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
