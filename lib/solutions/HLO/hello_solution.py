@@ -9,5 +9,3 @@ def hello(friend_name: str) -> str:
     # ___ I have now run "deploy" and seen that I need to return "Hello, World!"
     # R2 now complete for this challenge
     return "Hello, "+friend_name+"!"
-
-
