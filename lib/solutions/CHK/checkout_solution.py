@@ -78,14 +78,23 @@ sku_to_gof_offer_dict = {
     "R": [GetOneFreeOffer("R", 3, "Q")],
 }
 
+
 class GroupOffer:
     skus = ""
     num_req = ""
     offer_amount = ""
     ppu = ""
 
-    def __init__(self):
-        
+    def __init__(self, skus: str, num_req: int, offer_amount: int):
+        self.skus = skus
+        self.num_req = num_req
+        self.offer_amount = offer_amount
+        self.ppu = self.offer_amount / self.num_req
+
+
+group_offers = [
+    GroupOffer("STXYZ", 3, 45)
+]
 
 
 def calculate_best_mb_offer_amount(sku: str, num_items: int) -> int:
@@ -123,6 +132,9 @@ def calculate_get_one_free_offers(basket_dict: dict) -> dict:
                         basket_dict[gof_offer.prize_sku] = basket_dict[gof_offer.prize_sku] - 1
     return basket_dict
 
+def calculate_group_offers(basket_dict: dict) -> (int, dict):
+
+    return 0, None
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -142,12 +154,11 @@ def checkout(skus: str) -> int:
     if basket_sku_num_dict is None:
         return -1
     basket_sku_num_dict = calculate_get_one_free_offers(basket_sku_num_dict)
-
-
-
-    basket_total = 0
+    basket_total, basket_sku_num_dict = calculate_group_offers(basket_sku_num_dict)
+    
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
 
