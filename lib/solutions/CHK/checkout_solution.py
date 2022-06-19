@@ -80,34 +80,24 @@ def calculate_num_req_b_s(num_e_s: int) -> int:
     return num_e_s // 2  # Floor division answer
 
 
-def calculate_multi_buy_get_one_free_items(sku_num_dict: dict) -> dict:
+def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> dict:
     # We have 2 main situations with E
     # 1.You could have at least 1 B in your basket for every free one you are getting already, in which case, we don't
     # need to edit the basket
     # 2.You have not enough Bs in your basket for the amount of Es you have. This should be balanced in the basket.
-
-    # How many Es?
+    # For each GOF offer
     for mbgofo in multi_buy_get_one_free_offers:
-        if mbgofo.offer_sku in sku_num_dict:
-            #Check the amount of Es
-            if sku_num_dict.get(mbgofo.offer_sku, 0) >= mbgofo.offer_threshold:
-                # If the number of prizes (B) is greater than the number in the basket
-                num_prizes_in_basket = sku_num_dict.get(mbgofo.prize_sku, 0)
-                num_prizes_won = sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
+        # if the offer sku is in our basket
+        if mbgofo.offer_sku in basket_sku_num_dict:
+            # If the number of offer items in the basket is greater than or equal to the offer threshold
+            if basket_sku_num_dict.get(mbgofo.offer_sku, 0) >= mbgofo.offer_threshold:
+
+                num_prizes_in_basket = basket_sku_num_dict.get(mbgofo.prize_sku, 0)
+                num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
                 if num_prizes_in_basket < num_prizes_won:
-                    sku_num_dict.get(mbgofo.prize_sku, 0) + 1
-
-                    #add one to the basket
-
-    num_get_one_free_offer_item_params =
-    # How many Bs?
-    num_get_one_free_items = 0
-
-    # How many Bs should you have?
-    req_b_s = calculate_num_req_b_s(num_get_one_free_offer_item_params)
-    # if num_get_one_free_items < req_b_s:
-
-    return None
+                    # add one to the basket
+                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) + 1
+    return basket_sku_num_dict
 
 
 # noinspection PyUnusedLocal
@@ -137,5 +127,6 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
