@@ -41,7 +41,15 @@ class TestCheckout:
         assert checkout_solution.checkout("FFFF") == 30
 
     def test_checkout_r4(self):
-        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 4
+        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 965
+        assert checkout_solution.checkout("HHHHH") == 45
+        assert checkout_solution.checkout("HHHHHHHHH") == 85
+        assert checkout_solution.checkout("HHHHHHHHHH") == 80
+        assert checkout_solution.checkout("K") == 80
+        assert checkout_solution.checkout("KK") == 150
+        assert checkout_solution.checkout("KKK") == 230
+        assert checkout_solution.checkout("KKKK") == 3001
+
 
 
 
