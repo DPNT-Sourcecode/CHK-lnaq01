@@ -9,5 +9,8 @@ class TestSum:
         assert checkout_solution.checkout("B") == 30
         assert checkout_solution.checkout("C") == 20
         assert checkout_solution.checkout("D") == 15
+        assert checkout_solution.checkout("a") == -1
+        assert checkout_solution.checkout("-") == -1
+
 
 
