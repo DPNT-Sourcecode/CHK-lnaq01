@@ -5,6 +5,26 @@ sku_to_price_lookup_dict = {
     "D": 15,
     "E": 40,
     "F": 10,
+    "G": 20,
+    "H": 10,
+    "I": 10,
+    "J": 10,
+    "K": 10,
+    "L": 10,
+    "M": 10,
+    "N": 10,
+    "O": 10,
+    "P": 10,
+    "Q": 10,
+    "R": 10,
+    "S": 10,
+    "T": 10,
+    "U": 10,
+    "V": 10,
+    "W": 10,
+    "X": 10,
+    "Y": 10,
+    "Z": 10,
 }
 
 class MultiBuyDiscountOffer:
@@ -107,3 +127,4 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
