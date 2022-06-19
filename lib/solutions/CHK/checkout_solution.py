@@ -91,12 +91,13 @@ def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict) -> dict:
         if mbgofo.offer_sku in basket_sku_num_dict:
             # If the number of offer items in the basket is greater than or equal to the offer threshold
             if basket_sku_num_dict.get(mbgofo.offer_sku, 0) >= mbgofo.offer_threshold:
-
+                # If we don't have enough prizes in the basket, add the correct amount
                 num_prizes_in_basket = basket_sku_num_dict.get(mbgofo.prize_sku, 0)
                 num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
                 if num_prizes_in_basket < num_prizes_won:
                     # add one to the basket
-                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) + 1
+                    print("Adding an item for free")
+                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku, 0) + mbgofo.prize_amount
     return basket_sku_num_dict
 
 
@@ -114,19 +115,21 @@ def checkout(skus: str) -> int:
 
     if skus is None:
         return -1
-    sku_num_dict = parse_skus_string(skus)
-    print("sku_num_dict: ", sku_num_dict)
-    if sku_num_dict is None:
+    basket_sku_num_dict = parse_skus_string(skus)
+    print("basket_sku_num_dict: ", basket_sku_num_dict)
+    if basket_sku_num_dict is None:
         return -1
 
-    # sku_num_dict = calculate_free_items_offers(sku_num_dict)
+    basket_sku_num_dict = calculate_multi_buy_get_one_free_items(basket_sku_num_dict)
+    print("basket_sku_num_dict: ", basket_sku_num_dict)
 
     basket_total = 0
-    for sku, num_items in sku_num_dict.items():
+    for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
 
     return basket_total
+
 
 
 
