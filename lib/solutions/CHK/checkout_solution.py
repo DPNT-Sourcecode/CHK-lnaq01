@@ -75,8 +75,7 @@ class GetOneFreeOffer:
 sku_to_gof_offer_dict = {
     "E": [GetOneFreeOffer("E", 2, "B")],
     "N": [GetOneFreeOffer("N", 3, "M")],
-    "E": [GetOneFreeOffer("E", 2, "B")],
-
+    "E": [GetOneFreeOffer("R", 3, "Q")],
 }
 
 
@@ -139,6 +138,7 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
 
 
