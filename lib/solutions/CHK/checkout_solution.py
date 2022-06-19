@@ -7,7 +7,6 @@ sku_to_price_lookup_dict = {
     "F": 10,
 }
 
-
 class MultiBuyDiscountOffer:
     sku = ""
     offer_threshold = None
@@ -108,6 +107,7 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
 
 
