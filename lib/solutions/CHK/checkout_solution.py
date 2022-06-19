@@ -6,11 +6,6 @@ sku_to_price_lookup_dict = {
     "E": 40,
 }
 
-
-# We're beginning to create a solution which is becoming unsustainable, we should change the way we are
-# handling special offers. Using classes will allow us to contain functionality within the offers, making
-# the calculations clearer as we add more offers and items
-
 class MultiBuyDiscountOffer:
     sku = ""
     offer_threshold = None
@@ -28,8 +23,8 @@ def sort_multibuy_discounts_by_ppu(mb_offer: MultiBuyDiscountOffer):
 
 
 multi_buy_discount_offers = [
-    MultiBuyDiscountOffer("A", 5, 200),
     MultiBuyDiscountOffer("A", 3, 130),
+    MultiBuyDiscountOffer("A", 5, 200),
     MultiBuyDiscountOffer("B", 2, 45),
 ]
 
@@ -65,7 +60,7 @@ def calculate_item_amount(sku: str, num_items: int) -> int:
     return calculate_best_mb_offer_amount(sku, num_items)
 
 
-def parse_skus_string(skus: str) -> dict:
+def parse_skus_string(skus: str):
     # Outputs dictionary containing the skus, and number of them which occur in the file
     sku_num_items_dict = {}
     for sku in skus:
@@ -75,7 +70,7 @@ def parse_skus_string(skus: str) -> dict:
     return sku_num_items_dict
 
 
-def calculate_get_one_free_offers(basket_dict: dict):
+def calculate_get_one_free_offers(basket_dict: dict) -> dict:
     # Will remove free items if eligible, else, will not do anything to basket
     for sku, num_items in basket_dict.items():
         if sku in sku_to_gof_offer_dict:
@@ -104,12 +99,11 @@ def checkout(skus: str) -> int:
     basket_sku_num_dict = parse_skus_string(skus)
     if basket_sku_num_dict is None:
         return -1
-    print("Before - basket_sku_num_dict: ", basket_sku_num_dict)
     basket_sku_num_dict = calculate_get_one_free_offers(basket_sku_num_dict)
-    print("After - basket_sku_num_dict: ", basket_sku_num_dict)
 
     basket_total = 0
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
 
