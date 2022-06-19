@@ -70,7 +70,8 @@ class TestCheckout:
     #     assert checkout_solution.checkout("VVVV") == 180
 
     def test_checkout_r5(self):
-        assert checkout_solution.checkout("STX") == 45
+        assert checkout_solution.checkout("STXSTX") == 45
+
 
 
 
