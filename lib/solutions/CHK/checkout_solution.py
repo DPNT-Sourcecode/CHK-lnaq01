@@ -72,19 +72,14 @@ def parse_skus_string(skus: str) -> dict:
         sku_num_items_dict[sku] = sku_num_items_dict.get(sku, 0) + 1
     return sku_num_items_dict
 
-def calculate_multi_buy_get_one_free_items(basket_sku_num_dict: dict):
-    for mbgofo in multi_buy_get_one_free_offers:
-        # if the offer sku is in our basket
-        if mbgofo.offer_sku in basket_sku_num_dict:
-            # If the number of offer items in the basket is greater than or equal to the offer threshold
-            if basket_sku_num_dict.get(mbgofo.offer_sku, 0) >= mbgofo.offer_threshold:
-                # If we don't have enough prizes in the basket, add the correct amount
-                num_prizes_in_basket = basket_sku_num_dict.get(mbgofo.prize_sku, 0)
-                num_prizes_won = basket_sku_num_dict.get(mbgofo.offer_sku, 0) // mbgofo.offer_threshold
-                if num_prizes_in_basket >= num_prizes_won and num_prizes_in_basket > 0:
-                    basket_sku_num_dict[mbgofo.prize_sku] = basket_sku_num_dict.get(mbgofo.prize_sku,
-                                                                                    0) - mbgofo.prize_amount
-    return basket_sku_num_dict
+def calculate_get_one_free_offers(basket_dict: dict):
+    # Will remove free items if eligible, else, will not do anything to basket
+    for sku, num_items in basket_dict.items():
+        if sku in sku_to_gof_offer_dict:
+            for gof_offer in sku_to_gof_offer_dict.get(sku):
+
+
+
 
 
 # noinspection PyUnusedLocal
@@ -106,7 +101,7 @@ def checkout(skus: str) -> int:
     if basket_sku_num_dict is None:
         return -1
 
-    basket_sku_num_dict = calculate_multi_buy_get_one_free_items(basket_sku_num_dict)
+    basket_sku_num_dict = calculate_get_one_free_offers(basket_sku_num_dict)
     print("basket_sku_num_dict: ", basket_sku_num_dict)
 
     basket_total = 0
@@ -114,4 +109,5 @@ def checkout(skus: str) -> int:
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
 
