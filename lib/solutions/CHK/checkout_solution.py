@@ -80,7 +80,7 @@ def calculate_get_one_free_offers(basket_dict: dict):
     for sku, num_items in basket_dict.items():
         if sku in sku_to_gof_offer_dict:
             for gof_offer in sku_to_gof_offer_dict.get(sku):
-                if num_items >= gof_offer.offer_threshold:
+                while num_items >= gof_offer.offer_threshold:
                     num_items -= gof_offer.offer_threshold
                     if gof_offer.prize_sku in basket_dict:
                         basket_dict[gof_offer.prize_sku] = basket_dict[gof_offer.prize_sku] - 1
@@ -112,3 +112,4 @@ def checkout(skus: str) -> int:
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     return basket_total
+
