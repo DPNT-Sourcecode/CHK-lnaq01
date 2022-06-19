@@ -89,6 +89,12 @@ def calculate_multi_buy_get_one_free_items(sku_num_dict: dict) -> dict:
     # How many Es?
     for mbgofo in multi_buy_get_one_free_offers:
         if mbgofo.offer_sku in sku_num_dict:
+            #Check the amount of Es
+            if sku_num_dict[mbgofo.offer_sku] >= mbgofo.offer_threshold:
+                # If the number of prizes (B) is greater than the number in the basket
+                num_prizes = 
+
+                    #add one to the basket
 
     num_get_one_free_offer_item_params =
     # How many Bs?
@@ -128,3 +134,4 @@ def checkout(skus: str) -> int:
     print("basket_total: ", basket_total)
 
     return basket_total
+
