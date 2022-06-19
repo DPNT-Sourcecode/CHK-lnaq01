@@ -29,9 +29,12 @@ def parse_skus_string(skus: str) -> dict:
     # Outputs dictionary containing the skus, and number of them which occur in the file
     sku_num_items_dict = {}
     for sku in skus:
-        if sku in sku_num_items_dict:
-            sku_num_items_dict[sku] += 1
-
+        if sku not in sku_to_price_lookup_dict:
+            # # Skip character
+            # continue
+            # OR, if is not valid string
+            return None
+        sku_num_items_dict[sku] = sku_num_items_dict.get(sku, 0) + 1
     return sku_num_items_dict
 
 
@@ -50,10 +53,14 @@ def checkout(skus: str) -> int:
     if skus is None:
         return -1
     sku_num_dict = parse_skus_string(skus)
+    print("sku_num_dict: ", sku_num_dict)
     if sku_num_dict is None:
         return -1
 
     basket_total = 0
     for sku, num_items in sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
+    print("basket_total: ", basket_total)
+
     return basket_total
+
