@@ -23,6 +23,7 @@ class MultiBuyDiscountOffer:
 
 
 multi_buy_discount_offers = [
+    MultiBuyDiscountOffer("A", 5, 200),
     MultiBuyDiscountOffer("A", 3, 130),
     MultiBuyDiscountOffer("B", 2, 45),
 ]
@@ -72,14 +73,17 @@ def parse_skus_string(skus: str) -> dict:
         sku_num_items_dict[sku] = sku_num_items_dict.get(sku, 0) + 1
     return sku_num_items_dict
 
+
 def calculate_get_one_free_offers(basket_dict: dict):
     # Will remove free items if eligible, else, will not do anything to basket
     for sku, num_items in basket_dict.items():
         if sku in sku_to_gof_offer_dict:
             for gof_offer in sku_to_gof_offer_dict.get(sku):
-
-
-
+                if num_items >= gof_offer.offer_threshold:
+                    num_items -= gof_offer.offer_threshold
+                    if gof_offer.prize_sku in basket_dict:
+                        basket_dict[gof_offer.prize_sku] = basket_dict[gof_offer.prize_sku] - 1
+    return basket_dict
 
 
 # noinspection PyUnusedLocal
@@ -97,17 +101,17 @@ def checkout(skus: str) -> int:
     if skus is None:
         return -1
     basket_sku_num_dict = parse_skus_string(skus)
-    print("basket_sku_num_dict: ", basket_sku_num_dict)
     if basket_sku_num_dict is None:
         return -1
-
+    print("Before - basket_sku_num_dict: ", basket_sku_num_dict)
     basket_sku_num_dict = calculate_get_one_free_offers(basket_sku_num_dict)
-    print("basket_sku_num_dict: ", basket_sku_num_dict)
+    print("After - basket_sku_num_dict: ", basket_sku_num_dict)
 
     basket_total = 0
     for sku, num_items in basket_sku_num_dict.items():
         basket_total += calculate_item_amount(sku, num_items)
     print("basket_total: ", basket_total)
     return basket_total
+
 
 
